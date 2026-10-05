@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+猫マップ | 九大ねこマップ
+</title>
+
+<link
+rel="stylesheet"
+href="style.css">
+
+<link
+rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+</head>
+
+<body>
+
+<header class="header">
+
+<div class="site-title">
+
+<img
+src="assets/icons/icon-logo.jpeg"
+alt="九大ねこマップ"
+class="logo-img">
+
+<div>
+
+<h1>
+九大ねこマップ
+</h1>
+
+<p>
+Kyudai Cat Map
+</p>
+
+</div>
+
+</div>
+
+<button
+class="menu-btn"
+id="menu-btn">
+
+☰
+
+</button>
+
+</header>
+
+<div id="side-menu">
+
+<button id="close-menu">
+
+閉じる
+
+</button>
+
+<h2>
+
+メニュー
+
+</h2>
+
+<a href="index.html">
+<button>
+ホーム
+</button>
+</a>
+
+<a href="map.html">
+<button class="active">
+猫マップ
+</button>
+</a>
+
+<a href="post.html">
+<button>
+投稿
+</button>
+</a>
+
+<a href="about.html">
+<button>
+活動紹介
+</button>
+</a>
+
+<a href="support.html">
+<button>
+支援
+</button>
+</a>
+
+</div>
+
+<nav class="nav">
+
+<a
+href="index.html"
+class="nav-item">
+
+<img
+src="assets/icons/icon-home.jpeg"
+alt="ホーム">
+
+<span>
+ホーム
+</span>
+
+</a>
+
+<a
+href="map.html"
+class="nav-item active">
+
+<img
+src="assets/icons/icon-map.jpeg"
+alt="猫マップ">
+
+<span>
+猫マップ
+</span>
+
+</a>
+
+<a
+href="post.html"
+class="nav-item">
+
+<img
+src="assets/icons/icon-post.jpeg"
+alt="投稿">
+
+<span>
+投稿
+</span>
+
+</a>
+
+<a
+href="about.html"
+class="nav-item">
+
+<img
+src="assets/icons/icon-info.jpeg"
+alt="活動紹介">
+
+<span>
+活動紹介
+</span>
+
+</a>
+
+<a
+href="support.html"
+class="nav-item">
+
+<img
+src="assets/icons/icon-support.jpeg"
+alt="支援">
+
+<span>
+支援
+</span>
+
+</a>
+
+</nav>
+
+<section>
+
+<h2>
+
+猫目撃マップ
+
+</h2>
+
+<div class="filter-box">
+
+<h3>
+
+絞り込み
+
+</h3>
+
+
+
+
+
+<label>
+期間
+</label>
+
+<br>
+
+<select id="date-filter">
+
+<option value="all">
+全期間
+</option>
+
+<option value="7">
+過去7日
+</option>
+
+<option value="30">
+過去30日
+</option>
+
+<option value="90">
+過去90日
+</option>
+
+</select>
+
+<br><br>
+
+
+
+
+
+
+
+<label>
+
+柄
+
+</label>
+
+<br>
+
+<select id="pattern-filter">
+
+<option value="all">
+すべて
+</option>
+
+<option value="黒">
+黒
+</option>
+
+<option value="灰">
+灰
+</option>
+
+<option value="白">
+白
+</option>
+
+<option value="茶">
+茶
+</option>
+
+<option value="三毛">
+三毛
+</option>
+
+<option value="キジ・サバ">
+キジ・サバ
+</option>
+
+<option value="白黒">
+白黒
+</option>
+
+<option value="サビ">
+サビ
+</option>
+
+<option value="その他">
+その他
+</option>
+
+<option value="不明">
+不明
+</option>
+
+</select>
+
+<br><br>
+
+
+
+<label>
+
+さくらカット
+
+</label>
+
+<br>
+
+<select id="sakura-filter">
+
+<option value="all">
+すべて
+</option>
+
+<option value="あり">
+あり
+</option>
+
+<option value="なし">
+なし
+</option>
+
+<option value="不明">
+不明
+</option>
+
+</select>
+
+<br><br>
+
+
+
+<label>
+
+特徴
+
+</label>
+
+<br>
+
+<select id="feature-filter">
+
+<option value="all">
+すべて
+</option>
+
+<option value="くつした">
+くつした
+</option>
+
+<option value="白いお腹">
+白いお腹
+</option>
+
+<option value="縞">
+縞
+</option>
+
+<option value="長毛">
+長毛
+</option>
+
+<option value="かぎしっぽ">
+かぎしっぽ
+</option>
+
+<option value="首輪">
+首輪
+</option>
+
+</select>
+
+<br><br>
+
+
+
+
+<button id="apply-filter">
+
+絞り込み
+
+</button>
+
+<button id="reset-filter">
+
+リセット
+
+</button>
+
+</div>
+
+<div id="big-map">
+
+</div>
+
+</section>
+
+<footer>
+
+<p>
+
+九大ねこマップ
+
+</p>
+
+<p>
+
+九州大学周辺の猫情報共有サイト
+
+</p>
+
+</footer>
+
+<script
+src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+
+</script>
+
+<script
+src="https://www.gstatic.com/firebasejs/12.15.0/firebase-app-compat.js">
+
+</script>
+
+<script
+src="https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore-compat.js">
+
+</script>
+
+<script src="map.js">
+
+</script>
+
+<script src="menu.js">
+
+</script>
+
+</body>
+
+</html>
